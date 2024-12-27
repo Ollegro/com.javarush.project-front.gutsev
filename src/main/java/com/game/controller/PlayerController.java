@@ -52,7 +52,7 @@ public class PlayerController {
 
         LocalDate localDate = new Date(info.birthday).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int year = localDate.getYear();
-        if (year < 2000 || year > 3000) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        if (year < 1900 || year > 2025) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
         boolean banned = !isNull(info.banned) && info.banned;
 

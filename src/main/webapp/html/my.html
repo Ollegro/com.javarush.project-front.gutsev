@@ -18,9 +18,9 @@
 
     <label for="countsOnPage" onchange="getPlayers(0)"> Count per page:
         <select id="countsOnPage">
-            <option value="3">3</option>
-            <option value="5">5</option>
-            <option value="7">7</option>
+<!--            <option value="3">3</option>-->
+<!--            <option value="5">5</option>-->
+<!--            <option value="7">7</option>-->
             <option value="10">10</option>
             <option value="20">20</option>
         </select>
@@ -237,6 +237,7 @@
         let name = $('#inputName' + playerId).val();
         let title = $('#inputTitle' + playerId).val();
         let race = $('#selectRace' + playerId).val();
+        console.log("Saving Race: ", race);
         let profession = $('#selectProfession' + playerId).val();
         let banned = $('#selectBanned' + playerId).val();
 
@@ -260,17 +261,33 @@
                     getPlayers(getCurrentPage());
                 }
             });
+
+
+
     }
 
     function createPlayer() {
+        console.log("createPlayer function called"); // Проверка выполнения функции
         let url = "/rest/players";
         let nameNew = $('#createInputName').val()
         let titleNew = $('#createInputTitle').val()
-        let raceNew = $('#createSelectRace').val()
-        let professionNew = $('#createSelectProfession').val()
+        // let raceNew = $('#createSelectRace').val()
+        let raceNew = $('#createSelectedRacer').val(); // Исправлено
+        // let professionNew = $('#createSelectProfession').val()
+        let professionNew = $('#createSelectedProfession').val(); // Исправлено
         let levelNew = $('#createInputLevel').val()
         let birthdayNew = $('#createInputBirthday').val()
         let bannedNew = $('#createSelectBanned').val()
+
+        console.log(JSON.stringify({
+            "name": nameNew,
+            "title": titleNew,
+            "race": raceNew,
+            "profession": professionNew,
+            "level": parseInt(levelNew),
+            "birthday": new Date(birthdayNew).toISOString(),
+            "banned": bannedNew
+        }));
 
         $.ajax(
             {
